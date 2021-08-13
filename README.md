@@ -1,5 +1,5 @@
-## Management System
-본 프로젝트는 리액트 연습용 프로젝트입니다.
+## Management System Tutorial
+본 프로젝트는 리액트 연습용 프로젝트입니다
 
 # Getting Started with Create React App
 

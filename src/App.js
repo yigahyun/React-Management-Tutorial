@@ -1,5 +1,25 @@
 import { Component } from 'react';
 import Customer from './components/Customer'; // Customer 클래스 불러온다.
+import './App.css';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
+
+// 가로 길이가 1080픽셀 보다 작아질 때는 테이블 크기 항상 유지하도록.
+const styles = theme => ({
+  root: {
+    width:'100%',
+    marginTop : theme.spacing.unit * 3,
+    overflowX: "auto"
+  },
+  table : {
+    minWidth: 1080
+  }
+})
 
 const customer = [
   { //보내고자 하는 데이터 명시
@@ -31,25 +51,34 @@ const customer = [
 
 class App extends Component { // App 컴포넌트 안에 Customer 컴포넌트가 포함된 형태로 화면에 출력이 된다.
   render() {
+    const {classes} = this.props;
     return (
       <div>
-        {
-          customer.map(c => { // 배열의 각 원소를 c로 순회해서 출력
-            return ( // 그리고 이 한명의 c는 어떻게 출력이 될 거냐 하면
-            <Customer
-              key = {c.id} //map을 사용하려면 key가 필수이다. key값으로 각 원소를 구분한다.
-              id = {c.id}
-              image = {c.image}
-              name = {c.name}
-              birthday = {c.birthday}
-              gender = {c.gender}
-              job = {c.job}
-            />);
-          })
-        }
+        <Paper className = {classes.root}>
+          <Table className = {classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>번호</TableCell>
+                <TableCell>이미지</TableCell>
+                <TableCell>이름</TableCell>
+                <TableCell>생년월일</TableCell>
+                <TableCell>성별</TableCell>
+                <TableCell>직업</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody> 
+              {customer.map(c => {
+                  return ( 
+                    <Customer key = {c.id} id = {c.id} image = {c.image} name = {c.name} birthday = {c.birthday} gender = {c.gender} job = {c.job}/>); })
+              }
+            </TableBody>       
+          </Table>
+        </Paper>
+        
+        
       </div>   
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
